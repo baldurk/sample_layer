@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="sample_layer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="vk_layer.h" />
+    <ClInclude Include="vk_platform.h" />
+    <ClInclude Include="vulkan.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sample_layer_windows.json" />
+  </ItemGroup>
+</Project>
