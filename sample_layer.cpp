@@ -7,9 +7,11 @@
 #include <mutex>
 #include <map>
 
-#if defined(WIN32)
 #undef VK_LAYER_EXPORT
+#if defined(WIN32)
 #define VK_LAYER_EXPORT extern "C" __declspec(dllexport)
+#else
+#define VK_LAYER_EXPORT extern "C"
 #endif
 
 // single global lock, for simplicity
@@ -298,3 +300,4 @@ VK_LAYER_EXPORT PFN_vkVoidFunction VKAPI_CALL SampleLayer_GetInstanceProcAddr(Vk
     return instance_dispatch[GetKey(instance)].GetInstanceProcAddr(instance, pName);
   }
 }
+
