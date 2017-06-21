@@ -254,7 +254,7 @@ VK_LAYER_EXPORT VkResult VKAPI_CALL SampleLayer_EnumerateDeviceExtensionProperti
 
 #define GETPROCADDR(func) if(!strcmp(pName, "vk" #func)) return (PFN_vkVoidFunction)&SampleLayer_##func;
 
-VK_LAYER_EXPORT PFN_vkVoidFunction VKAPI_CALL SampleLayer_GetDeviceProcAddr(VkDevice device, const char *pName)
+extern "C" VK_LAYER_EXPORT PFN_vkVoidFunction VKAPI_CALL SampleLayer_GetDeviceProcAddr(VkDevice device, const char *pName)
 {
   // device chain functions we intercept
   GETPROCADDR(GetDeviceProcAddr);
@@ -273,7 +273,7 @@ VK_LAYER_EXPORT PFN_vkVoidFunction VKAPI_CALL SampleLayer_GetDeviceProcAddr(VkDe
   }
 }
 
-VK_LAYER_EXPORT PFN_vkVoidFunction VKAPI_CALL SampleLayer_GetInstanceProcAddr(VkInstance instance, const char *pName)
+extern "C" VK_LAYER_EXPORT PFN_vkVoidFunction VKAPI_CALL SampleLayer_GetInstanceProcAddr(VkInstance instance, const char *pName)
 {
   // instance chain functions we intercept
   GETPROCADDR(GetInstanceProcAddr);
@@ -298,3 +298,4 @@ VK_LAYER_EXPORT PFN_vkVoidFunction VKAPI_CALL SampleLayer_GetInstanceProcAddr(Vk
     return instance_dispatch[GetKey(instance)].GetInstanceProcAddr(instance, pName);
   }
 }
+
