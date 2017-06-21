@@ -7,9 +7,11 @@
 #include <mutex>
 #include <map>
 
-#if defined(WIN32)
 #undef VK_LAYER_EXPORT
+#if defined(WIN32)
 #define VK_LAYER_EXPORT extern "C" __declspec(dllexport)
+#else
+#define VK_LAYER_EXPORT extern "C"
 #endif
 
 // single global lock, for simplicity
@@ -254,7 +256,7 @@ VK_LAYER_EXPORT VkResult VKAPI_CALL SampleLayer_EnumerateDeviceExtensionProperti
 
 #define GETPROCADDR(func) if(!strcmp(pName, "vk" #func)) return (PFN_vkVoidFunction)&SampleLayer_##func;
 
-extern "C" VK_LAYER_EXPORT PFN_vkVoidFunction VKAPI_CALL SampleLayer_GetDeviceProcAddr(VkDevice device, const char *pName)
+VK_LAYER_EXPORT PFN_vkVoidFunction VKAPI_CALL SampleLayer_GetDeviceProcAddr(VkDevice device, const char *pName)
 {
   // device chain functions we intercept
   GETPROCADDR(GetDeviceProcAddr);
@@ -273,7 +275,7 @@ extern "C" VK_LAYER_EXPORT PFN_vkVoidFunction VKAPI_CALL SampleLayer_GetDevicePr
   }
 }
 
-extern "C" VK_LAYER_EXPORT PFN_vkVoidFunction VKAPI_CALL SampleLayer_GetInstanceProcAddr(VkInstance instance, const char *pName)
+VK_LAYER_EXPORT PFN_vkVoidFunction VKAPI_CALL SampleLayer_GetInstanceProcAddr(VkInstance instance, const char *pName)
 {
   // instance chain functions we intercept
   GETPROCADDR(GetInstanceProcAddr);
