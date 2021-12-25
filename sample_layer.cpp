@@ -67,6 +67,7 @@ VK_LAYER_EXPORT VkResult VKAPI_CALL SampleLayer_CreateInstance(
   PFN_vkCreateInstance createFunc = (PFN_vkCreateInstance)gpa(VK_NULL_HANDLE, "vkCreateInstance");
 
   VkResult ret = createFunc(pCreateInfo, pAllocator, pInstance);
+  if (ret != VK_SUCCESS) return ret;
 
   // fetch our own dispatch table for the functions we need, into the next layer
   VkLayerInstanceDispatchTable dispatchTable;
@@ -118,6 +119,7 @@ VK_LAYER_EXPORT VkResult VKAPI_CALL SampleLayer_CreateDevice(
   PFN_vkCreateDevice createFunc = (PFN_vkCreateDevice)gipa(VK_NULL_HANDLE, "vkCreateDevice");
 
   VkResult ret = createFunc(physicalDevice, pCreateInfo, pAllocator, pDevice);
+  if (ret != VK_SUCCESS) return ret;
   
   // fetch our own dispatch table for the functions we need, into the next layer
   VkLayerDispatchTable dispatchTable;
